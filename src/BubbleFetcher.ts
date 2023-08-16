@@ -30,7 +30,7 @@ type Constraints = {
 const ConstraintType = ["equals", "not equal"] as const;
 
 const fetcher: FetcherFn = async ({
-  method,
+  method = "GET",
   body = null,
   objectName,
   BUBBLE_API_KEY,
