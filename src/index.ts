@@ -1,0 +1,1 @@
+export { bubbleFetcher } from "./BubbleFetcher";
