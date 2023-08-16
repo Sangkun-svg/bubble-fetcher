@@ -1,33 +1,11 @@
-import axios, { Method, AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import convertToURLFormat from "./convertToURLFormat";
-
-type FetcherParams<RequestData = any> = {
-  method?: Method;
-  body?: RequestData;
-  objectName?: string;
-  BUBBLE_API_KEY?: string;
-  isDev?: boolean;
-  domain?: string;
-};
-
-type FetcherParamsWithoutMethod = Omit<FetcherParams, "method">;
-
-type FetcherFn = <RequestData = {}>(
-  params: FetcherParams<RequestData>
-) => Promise<any>;
-
-type SortOption = {
-  key: string;
-  order: "ASC" | "DESC";
-};
-
-type Constraints = {
-  key: string;
-  constraint_type: (typeof ConstraintType)[number];
-  value?: string | boolean;
-};
-
-const ConstraintType = ["equals", "not equal"] as const;
+import {
+  FetcherParamsWithoutMethod,
+  FetcherFn,
+  SortOption,
+  Constraints,
+} from "./types";
 
 const fetcher: FetcherFn = async ({
   method = "GET",
@@ -53,7 +31,7 @@ const fetcher: FetcherFn = async ({
   try {
     let result: any[] = [];
     const response = await axios.request(requestInit);
-    if (method === "GET" || method === "get") {
+    if (method.toLowerCase() === "get") {
       const { remaining, count } = response.data.response;
       if (remaining === 0) {
         result = [...response.data.response.results];
@@ -78,7 +56,8 @@ const fetcher: FetcherFn = async ({
     }
     return result;
   } catch (error) {
-    console.log("error : ", error);
+    console.error("Error:", error);
+    throw new Error("Bubble Fetcher Error API Request Failed");
   }
 };
 
@@ -148,7 +127,7 @@ const getWithConstraints = async <ResponseData>(
 
 export type { Constraints };
 
-export const bubbleAPI = {
+export const bubbleFetcher = {
   get: (objectName: string) => get(objectName),
   post: (data: FetcherParamsWithoutMethod) => post(data),
   patch: (data: FetcherParamsWithoutMethod) => patch(data),
