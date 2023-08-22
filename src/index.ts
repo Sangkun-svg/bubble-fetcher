@@ -1,1 +1,2 @@
-export { bubbleFetcher } from "./BubbleFetcher";
+import { bubbleFetcher } from "./BubbleFetcher";
+export { bubbleFetcher };
