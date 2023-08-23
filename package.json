@@ -1,6 +1,6 @@
 {
   "name": "bubblefetcher",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Use fetcher with bubble.io",
   "main": "index.ts",
   "exports": {
