@@ -5,6 +5,7 @@ import {
   SortOption,
   Constraints,
   Initialize,
+  Options,
 } from "./types";
 import { bubbleConfig } from "./config";
 
@@ -12,10 +13,10 @@ const fetcher: FetcherFn = async ({
   method = "GET",
   body = null,
   objectName,
-  sortOption,
-  constraints,
+  options,
 }) => {
   const { apiKey, domain, isDev } = bubbleConfig;
+  const { sortOption, constraints } = options;
   const baseUrl = isDev
     ? `https://${domain}/version-test`
     : `https://${domain}`;
@@ -65,16 +66,11 @@ const fetcher: FetcherFn = async ({
   }
 };
 
-const get = async <ResponseData>(
-  objectName: string,
-  sortOption?: SortOption,
-  constraints?: Constraints
-) => {
+const get = async <ResponseData>(objectName: string, options?: Options) => {
   return await fetcher<ResponseData>({
     method: "GET",
     objectName,
-    sortOption,
-    constraints,
+    options,
   });
 };
 
@@ -121,9 +117,8 @@ const deleteTable = async <RequestData>(objectName: string) => {
 export const bubbleFetcher = {
   get: (
     objectName: string,
-    sortOption?: SortOption,
-    constrains?: Constraints
-  ) => get(objectName, sortOption, constrains),
+    options?: { sortOption?: SortOption; constraints?: Constraints }
+  ) => get(objectName, options),
   post: (data: FetcherParamsWithoutMethod) => post(data),
   patch: (data: FetcherParamsWithoutMethod) => patch(data),
   put: (data: FetcherParamsWithoutMethod) => put(data),
