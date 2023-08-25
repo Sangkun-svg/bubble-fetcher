@@ -1,6 +1,6 @@
 {
   "name": "bubblefetcher",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Use fetcher with bubble.io",
   "main": "lib/index",
   "typings": "lib/index",
