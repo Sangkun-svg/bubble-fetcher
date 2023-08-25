@@ -16,13 +16,12 @@ const fetcher: FetcherFn = async ({
   options,
 }) => {
   const { apiKey, domain, isDev } = bubbleConfig;
-  const { sortOption, constraints } = options;
   const baseUrl = isDev
     ? `https://${domain}/version-test`
     : `https://${domain}`;
 
-  const encodedConstraints = constraints
-    ? encodeURIComponent(JSON.stringify(constraints))
+  const encodedConstraints = options?.constraints
+    ? encodeURIComponent(JSON.stringify(options?.constraints))
     : ``;
 
   const uri = `${baseUrl}/api/1.1/obj/${objectName}?constraints=[${encodedConstraints}]`;
@@ -34,7 +33,7 @@ const fetcher: FetcherFn = async ({
     headers: {
       Authorization: `Bearer ${apiKey}`,
     },
-    params: sortOption,
+    params: options?.sortOption,
   };
 
   try {
