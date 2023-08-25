@@ -5,7 +5,7 @@ export type FetcherParams<RequestData = any> = {
   body?: RequestData;
   objectName: string;
   isDev?: boolean;
-  options: Options;
+  options?: Options;
 };
 
 

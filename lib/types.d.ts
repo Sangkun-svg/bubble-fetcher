@@ -4,11 +4,14 @@ export type FetcherParams<RequestData = any> = {
     body?: RequestData;
     objectName: string;
     isDev?: boolean;
-    sortOption?: SortOption;
-    constraints?: Constraints;
+    options?: Options;
 };
 export type FetcherParamsWithoutMethod = Omit<FetcherParams, "method">;
 export type FetcherFn = <RequestData = {}>(params: FetcherParams<RequestData>) => Promise<any>;
+export type Options = {
+    sortOption?: SortOption;
+    constraints?: Constraints;
+};
 export type SortOption = {
     sort_field: string;
     descending: boolean;
