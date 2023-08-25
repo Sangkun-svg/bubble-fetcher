@@ -4,7 +4,6 @@ export type FetcherParams<RequestData = any> = {
   method?: Method;
   body?: RequestData;
   objectName: string;
-  isDev?: boolean;
   options?: Options;
 };
 
