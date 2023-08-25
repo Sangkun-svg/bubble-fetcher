@@ -1,19 +1,11 @@
 {
   "name": "bubblefetcher",
-  "version": "0.2.2",
+  "version": "1.0.0",
   "description": "Use fetcher with bubble.io",
-  "main": "index.ts",
-  "exports": {
-    ".": {
-      "types": {
-        "default": "./dist/BubbleFetcher.d.ts"
-      },
-      "default": {
-        "default": "./dist/BubbleFetcher.js"
-      }
-    }
-  },
+  "main": "lib/index",
+  "typings": "lib/index",
   "scripts": {
+    "build": "tsc -p .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
