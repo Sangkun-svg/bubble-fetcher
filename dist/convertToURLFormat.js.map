@@ -1,1 +1,0 @@
-{"version":3,"file":"convertToURLFormat.js","sourceRoot":"","sources":["../src/convertToURLFormat.ts"],"names":[],"mappings":";;AAAA,MAAM,kBAAkB,GAAG,CAAC,IAAY,EAAU,EAAE;IAClD,OAAO,IAAI,CAAC,OAAO,CAAC,IAAI,EAAE,KAAK,CAAC,CAAC,OAAO,CAAC,IAAI,EAAE,KAAK,CAAC,CAAC;AACxD,CAAC,CAAC;AAEF,kBAAe,kBAAkB,CAAC"}
