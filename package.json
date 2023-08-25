@@ -1,5 +1,5 @@
 {
-  "name": "@sangkun-svg/bubble-fetcher",
+  "name": "bubble-fetcher",
   "version": "1.0.8",
   "description": "Use fetcher with bubble.io",
   "main": "lib/index",
