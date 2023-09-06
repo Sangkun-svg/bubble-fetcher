@@ -41,6 +41,7 @@ const fetcher: FetcherFn = async ({
     const response = await axios.request(requestInit);
     if (method.toLowerCase() === "get") {
       const { remaining, count } = response.data.response;
+
       if (remaining === 0) {
         result = [...response.data.response.results];
       }
@@ -49,7 +50,7 @@ const fetcher: FetcherFn = async ({
         const pages = Math.ceil((remaining + count) / 100);
         for (let index = 0; index <= pages; index++) {
           let cursor = index * 100;
-          const res = await axios(`${uri}/${objectName}?cursor=${cursor}`);
+          const res = await axios(`${uri}&cursor=${cursor}`);
           for (const element of res.data.response.results) {
             result.push(element);
           }
