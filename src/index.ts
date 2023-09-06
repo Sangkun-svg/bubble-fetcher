@@ -2,8 +2,6 @@ import axios, { AxiosRequestConfig } from "axios";
 import {
   FetcherParamsWithoutMethod,
   FetcherFn,
-  SortOption,
-  Constraints,
   Initialize,
   Options,
 } from "./types";
@@ -33,19 +31,22 @@ const fetcher: FetcherFn = async ({
     headers: {
       Authorization: `Bearer ${apiKey}`,
     },
-    params: options?.sortOption,
+    params: {
+      ...options?.sortOption,
+      ...options?.pageOption,
+    }
   };
 
   try {
-    let result: any[] = [];
     const response = await axios.request(requestInit);
     if (method.toLowerCase() === "get") {
       const { remaining, count } = response.data.response;
       if (remaining === 0) {
-        result = [...response.data.response.results];
+        return [...response.data.response.results];
       }
 
       if (remaining > 0) {
+        let result: any[] = [];
         const pages = Math.ceil((remaining + count) / 100);
         for (let index = 0; index <= pages; index++) {
           let cursor = index * 100;
@@ -54,11 +55,12 @@ const fetcher: FetcherFn = async ({
             result.push(element);
           }
         }
+        return result;
       }
     } else {
-      result = response.data;
+      return response.data;
     }
-    return result;
+    return response.data.response.results;
   } catch (error) {
     console.error("Error:", error);
     throw new Error("Bubble Fetcher Error API Request Failed");
@@ -115,8 +117,8 @@ const deleteTable = async <RequestData>(objectName: string) => {
 
 export const bubbleFetcher = {
   get: (
-    objectName: string,
-    options?: { sortOption?: SortOption; constraints?: Constraints }
+      objectName: string,
+      options?: Options
   ) => get(objectName, options),
   post: (data: FetcherParamsWithoutMethod) => post(data),
   patch: (data: FetcherParamsWithoutMethod) => patch(data),
