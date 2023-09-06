@@ -11,7 +11,7 @@ export type FetcherParams<RequestData = any> = {
 export type FetcherParamsWithoutMethod = Omit<FetcherParams, "method">;
 
 export type FetcherFn = <RequestData = {}>(
-    params: FetcherParams<RequestData>
+  params: FetcherParams<RequestData>
 ) => Promise<any>;
 
 export type Options = {
@@ -44,18 +44,18 @@ export type Initialize = {
 };
 
 export type ConstraintType =
-    | "equals"
-    | "not equal"
-    | "is_empty"
-    | "is_not_empty"
-    | "text contains"
-    | "not text contains"
-    | "greater than"
-    | "less than"
-    | "in"
-    | "not in"
-    | "contains"
-    | "not contains"
-    | "empty"
-    | "not empty"
-    | "geographic_search";
+  | "equals"
+  | "not equal"
+  | "is_empty"
+  | "is_not_empty"
+  | "text contains"
+  | "not text contains"
+  | "greater than"
+  | "less than"
+  | "in"
+  | "not in"
+  | "contains"
+  | "not contains"
+  | "empty"
+  | "not empty"
+  | "geographic_search";

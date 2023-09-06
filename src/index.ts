@@ -117,8 +117,8 @@ const deleteTable = async <RequestData>(objectName: string) => {
 
 export const bubbleFetcher = {
   get: (
-      objectName: string,
-      options?: Options
+    objectName: string,
+    options?: Options
   ) => get(objectName, options),
   post: (data: FetcherParamsWithoutMethod) => post(data),
   patch: (data: FetcherParamsWithoutMethod) => patch(data),
