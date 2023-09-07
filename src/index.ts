@@ -2,10 +2,8 @@ import axios, { AxiosRequestConfig } from "axios";
 import {
   FetcherParamsWithoutMethod,
   FetcherFn,
-  SortOption,
-  Constraints,
   Initialize,
-  Options,
+  Options, PageOption,
 } from "./types";
 import { bubbleConfig } from "./config";
 
@@ -24,7 +22,8 @@ const fetcher: FetcherFn = async ({
     ? encodeURIComponent(JSON.stringify(options?.constraints))
     : ``;
 
-  const uri = `${baseUrl}/api/1.1/obj/${objectName}?constraints=[${encodedConstraints}]`;
+  const pageUri = getPageParams(options?.pageOption);
+  const uri = `${baseUrl}/api/1.1/obj/${objectName}?constraints=[${encodedConstraints}]${pageUri}`;
 
   const requestInit: AxiosRequestConfig = {
     method,
@@ -37,16 +36,16 @@ const fetcher: FetcherFn = async ({
   };
 
   try {
-    let result: any[] = [];
     const response = await axios.request(requestInit);
     if (method.toLowerCase() === "get") {
       const { remaining, count } = response.data.response;
 
       if (remaining === 0) {
-        result = [...response.data.response.results];
+        return [...response.data.response.results];
       }
 
       if (remaining > 0) {
+        let result: any[] = [];
         const pages = Math.ceil((remaining + count) / 100);
         for (let index = 0; index <= pages; index++) {
           let cursor = index * 100;
@@ -55,11 +54,12 @@ const fetcher: FetcherFn = async ({
             result.push(element);
           }
         }
+        return result;
       }
     } else {
-      result = response.data;
+      return response.data;
     }
-    return result;
+    return response.data.response.results;
   } catch (error) {
     console.error("Error:", error);
     throw new Error("Bubble Fetcher Error API Request Failed");
@@ -114,10 +114,21 @@ const deleteTable = async <RequestData>(objectName: string) => {
   });
 };
 
+const getPageParams = (pageOption: PageOption) => {
+  const { cursor, limit } = pageOption;
+  if (!cursor || !limit) return ``;
+
+  if (cursor && !limit) return `&cursor=${cursor}`;
+
+  if (!cursor && limit) return `&limit=${limit}`;
+
+  return `&cursor=${cursor}&limit=${limit}`;
+}
+
 export const bubbleFetcher = {
   get: (
     objectName: string,
-    options?: { sortOption?: SortOption; constraints?: Constraints }
+    options?: Options
   ) => get(objectName, options),
   post: (data: FetcherParamsWithoutMethod) => post(data),
   patch: (data: FetcherParamsWithoutMethod) => patch(data),

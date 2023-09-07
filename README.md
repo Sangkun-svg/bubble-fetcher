@@ -77,9 +77,17 @@ bubbleFetcher.init({
             value: "target value",
           },
         });
+    
+        // getAllWithPage
+        const users = await bubbleFetcher.get("/user", {
+            pageOption: {
+              cursor: 0,
+              limit: 10,
+            },   
+        })
 
 
-        // get with Sort and Constarint
+        // get with Sort and Constarint and Page
         const users = await bubbleFetcher.get("/user", {
          sortOption: {
            sort_field: "name_text",
@@ -89,6 +97,10 @@ bubbleFetcher.init({
            key: "name_text",
            constraint_type: "equals",
            value: "target value",
+         },
+         pageOption: {
+           cursor: 0,
+           limit: 10,
          },
        });
     ```
