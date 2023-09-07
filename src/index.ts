@@ -3,7 +3,7 @@ import {
   FetcherParamsWithoutMethod,
   FetcherFn,
   Initialize,
-  Options,
+  Options, PageOption,
 } from "./types";
 import { bubbleConfig } from "./config";
 
@@ -22,7 +22,8 @@ const fetcher: FetcherFn = async ({
     ? encodeURIComponent(JSON.stringify(options?.constraints))
     : ``;
 
-  const uri = `${baseUrl}/api/1.1/obj/${objectName}?constraints=[${encodedConstraints}]`;
+  const pageUri = getPageParams(options?.pageOption);
+  const uri = `${baseUrl}/api/1.1/obj/${objectName}?constraints=[${encodedConstraints}]${pageUri}`;
 
   const requestInit: AxiosRequestConfig = {
     method,
@@ -31,10 +32,7 @@ const fetcher: FetcherFn = async ({
     headers: {
       Authorization: `Bearer ${apiKey}`,
     },
-    params: {
-      ...options?.sortOption,
-      ...options?.pageOption,
-    }
+    params: options?.sortOption,
   };
 
   try {
@@ -114,6 +112,17 @@ const deleteTable = async <RequestData>(objectName: string) => {
     objectName,
   });
 };
+
+const getPageParams = (pageOption: PageOption) => {
+  const { cursor, limit } = pageOption;
+  if (!cursor || !limit) return ``;
+
+  if (cursor && !limit) return `&cursor=${cursor}`;
+
+  if (!cursor && limit) return `&limit=${limit}`;
+
+  return `&cursor=${cursor}&limit=${limit}`;
+}
 
 export const bubbleFetcher = {
   get: (
