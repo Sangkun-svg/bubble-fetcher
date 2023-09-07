@@ -23,7 +23,7 @@ const fetcher: FetcherFn = async ({
     : ``;
 
   const pageUri = getPageParams(options?.pageOption);
-  const uri = `${baseUrl}/api/1.1/obj/${objectName}?constraints=[${encodedConstraints}]${pageUri}`;
+  const uri = `${baseUrl}/api/1.1/obj${objectName}?constraints=[${encodedConstraints}]${pageUri}`;
 
   const requestInit: AxiosRequestConfig = {
     method,
@@ -40,11 +40,11 @@ const fetcher: FetcherFn = async ({
     if (method.toLowerCase() === "get") {
       const { remaining, count } = response.data.response;
 
-      if (remaining === 0) {
+      if (pageUri || remaining === 0) {
         return [...response.data.response.results];
       }
 
-      if (remaining > 0) {
+      if (!pageUri && remaining > 0) {
         let result: any[] = [];
         const pages = Math.ceil((remaining + count) / 100);
         for (let index = 0; index <= pages; index++) {
@@ -116,14 +116,15 @@ const deleteTable = async <RequestData>(objectName: string) => {
 
 const getPageParams = (pageOption: PageOption) => {
   const { cursor, limit } = pageOption;
-  if (!cursor || !limit) return ``;
+
+  if (!cursor && !limit) return ``;
 
   if (cursor && !limit) return `&cursor=${cursor}`;
 
-  if (!cursor && limit) return `&limit=${limit}`;
+  if (!cursor && limit) return `&cursor=0&limit=${limit}`;
 
   return `&cursor=${cursor}&limit=${limit}`;
-}
+};
 
 export const bubbleFetcher = {
   get: (
