@@ -10,11 +10,16 @@ export type FetcherFn = <RequestData = {}>(params: FetcherParams<RequestData>) =
 export type Options = {
     sortOption?: SortOption;
     constraints?: Constraints;
+    pageOption?: PageOption;
 };
 export type SortOption = {
     sort_field: string;
     descending: boolean;
     additional_sort_fields?: string[];
+};
+export type PageOption = {
+    cursor?: number;
+    limit?: number;
 };
 export type Constraints = {
     key: string;

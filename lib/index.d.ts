@@ -1,9 +1,6 @@
-import { FetcherParamsWithoutMethod, SortOption, Constraints, Initialize } from "./types";
+import { FetcherParamsWithoutMethod, Initialize, Options } from "./types";
 export declare const bubbleFetcher: {
-    get: (objectName: string, options?: {
-        sortOption?: SortOption;
-        constraints?: Constraints;
-    }) => Promise<any>;
+    get: (objectName: string, options?: Options) => Promise<any>;
     post: (data: FetcherParamsWithoutMethod) => Promise<any>;
     patch: (data: FetcherParamsWithoutMethod) => Promise<any>;
     put: (data: FetcherParamsWithoutMethod) => Promise<any>;

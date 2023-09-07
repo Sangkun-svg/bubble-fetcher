@@ -27,9 +27,9 @@ export type SortOption = {
 };
 
 export type PageOption = {
-  cursor: number;
-  limit: number | string;
-}
+  cursor?: number;
+  limit?: number;
+};
 
 export type Constraints = {
   key: string;
