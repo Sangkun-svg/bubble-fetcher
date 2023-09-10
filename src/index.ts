@@ -115,7 +115,8 @@ const deleteTable = async <RequestData>(objectName: string) => {
 };
 
 const getPageParams = (pageOption: PageOption) => {
-  const { cursor, limit } = pageOption;
+  const cursor = pageOption?.cursor;
+  const limit = pageOption?.limit;
 
   if (!cursor && !limit) return ``;
 
