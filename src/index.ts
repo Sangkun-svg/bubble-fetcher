@@ -74,10 +74,10 @@ const get = async <ResponseData>(objectName: string, options?: Options) => {
   });
 };
 
-const post = async <RequestData>({
-  objectName,
-  body,
-}: FetcherParamsWithoutMethod) => {
+const post = async <RequestData>(
+  objectName: string,
+  { body }: FetcherParamsWithoutMethod
+) => {
   return await fetcher<RequestData>({
     method: "POST",
     objectName,
@@ -85,10 +85,10 @@ const post = async <RequestData>({
   });
 };
 
-const patch = async <RequestData>({
-  objectName,
-  body,
-}: FetcherParamsWithoutMethod) => {
+const patch = async <RequestData>(
+  objectName: string,
+  { body }: FetcherParamsWithoutMethod
+) => {
   return await fetcher<RequestData>({
     method: "PATCH",
     objectName,
@@ -96,10 +96,10 @@ const patch = async <RequestData>({
   });
 };
 
-const put = async <RequestData>({
-  objectName,
-  body,
-}: FetcherParamsWithoutMethod) => {
+const put = async <RequestData>(
+  objectName: string,
+  { body }: FetcherParamsWithoutMethod
+) => {
   return await fetcher<RequestData>({
     method: "PUT",
     objectName,
@@ -128,13 +128,13 @@ const getPageParams = (pageOption: PageOption) => {
 };
 
 export const bubbleFetcher = {
-  get: (
-    objectName: string,
-    options?: Options
-  ) => get(objectName, options),
-  post: (data: FetcherParamsWithoutMethod) => post(data),
-  patch: (data: FetcherParamsWithoutMethod) => patch(data),
-  put: (data: FetcherParamsWithoutMethod) => put(data),
+  get: (objectName: string, options?: Options) => get(objectName, options),
+  post: (objectName: string, data: FetcherParamsWithoutMethod) =>
+    post(objectName, data),
+  patch: (objectName: string, data: FetcherParamsWithoutMethod) =>
+    patch(objectName, data),
+  put: (objectName: string, data: FetcherParamsWithoutMethod) =>
+    put(objectName, data),
   delete: (objectName: string) => deleteTable(objectName),
   init: ({ apiKey, domain, isDev }: Initialize) => {
     bubbleConfig.apiKey = apiKey;
