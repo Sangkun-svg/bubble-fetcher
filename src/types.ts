@@ -8,7 +8,10 @@ export type FetcherParams<RequestData = any> = {
 };
 
 
-export type FetcherParamsWithoutMethod = Omit<FetcherParams, "method">;
+export type FetcherParamsWithoutMethod = Omit<
+  FetcherParams,
+  "method" | "objectName"
+>;
 
 export type FetcherFn = <RequestData = {}>(
   params: FetcherParams<RequestData>

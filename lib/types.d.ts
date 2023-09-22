@@ -5,7 +5,7 @@ export type FetcherParams<RequestData = any> = {
     objectName: string;
     options?: Options;
 };
-export type FetcherParamsWithoutMethod = Omit<FetcherParams, "method">;
+export type FetcherParamsWithoutMethod = Omit<FetcherParams, "method" | "objectName">;
 export type FetcherFn = <RequestData = {}>(params: FetcherParams<RequestData>) => Promise<any>;
 export type Options = {
     sortOption?: SortOption;
