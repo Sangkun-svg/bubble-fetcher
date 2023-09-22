@@ -108,8 +108,10 @@ bubbleFetcher.init({
   - #### bubbleFetcher.post(objectName[, body])
     ```js
       await bubbleFetcher.post("/user" , {
-        name_text : "Sangkun-svg",
-        age_number: 23
+        body :{
+          name_text : "Sangkun-svg",
+          age_number: 23
+        }
       });
 
     ```
@@ -117,13 +119,17 @@ bubbleFetcher.init({
   - #### bubbleFetcher.put(objectName[, body]) && bubbleFetcher.patch(objectName[, body])
     ```js
       await bubbleFetcher.put("/user" , {
-        name_text : "Sangkun-svg",
-        age_number: 23
+        body :{
+          name_text : "Sangkun-svg",
+          age_number: 23
+        }
       });
 
       await bubbleFetcher.patch("/user" , {
-        name_text : "Sangkun-svg",
-        age_number: 23
+        body :{
+          name_text : "Sangkun-svg",
+          age_number: 23
+        }
       });
     ```
 
