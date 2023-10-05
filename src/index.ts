@@ -14,6 +14,14 @@ const fetcher: FetcherFn = async ({
   options,
 }) => {
   const { apiKey, domain, isDev } = bubbleConfig;
+
+  if (!apiKey) {
+    throw Error("Error : API KEY does not exist.");
+  }
+  if (!domain) {
+    throw Error("Error :Bubble DabaBase link does not exist.");
+  }
+
   const baseUrl = isDev
     ? `https://${domain}/version-test`
     : `https://${domain}`;
