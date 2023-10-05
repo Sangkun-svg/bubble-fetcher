@@ -16,10 +16,10 @@ const fetcher: FetcherFn = async ({
   const { apiKey, domain, isDev } = bubbleConfig;
 
   if (!apiKey) {
-    throw Error("Error : API KEY does not exist.");
+    throw Error("API KEY does not exist.");
   }
   if (!domain) {
-    throw Error("Error :Bubble DabaBase link does not exist.");
+    throw Error("Bubble DabaBase link does not exist.");
   }
 
   const baseUrl = isDev
@@ -69,7 +69,7 @@ const fetcher: FetcherFn = async ({
     }
     return response.data.response.results;
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Error : ", error);
     throw new Error("Bubble Fetcher Error API Request Failed");
   }
 };
