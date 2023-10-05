@@ -11,3 +11,4 @@ backup/
 /.husky/
 .npmrc
 .env
+test.ts

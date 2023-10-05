@@ -1,6 +1,6 @@
 {
   "name": "bubblefetcher",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "Use fetcher with bubble.io",
   "main": "lib/index",
   "typings": "lib/index",
@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/Sangkun-svg/BubbleFetcher#readme",
   "devDependencies": {
+    "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
   },
   "dependencies": {
